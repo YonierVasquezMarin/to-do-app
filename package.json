@@ -23,6 +23,7 @@
     "@angular/router": "^19.0.0",
     "@ionic/angular": "^8.0.0",
     "@ionic/cordova-builders": "^12.1.2",
+    "dexie": "^4.0.11",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "swiper": "^11.2.6",
