@@ -25,6 +25,12 @@ export const routes: Routes = [
 		canActivate: [tutorialGuard],
 	},
 	{
+		path: 'category-detail',
+		loadComponent: () =>
+			import('./components/category-detail/category-detail.component').then((m) => m.CategoryDetailComponent),
+		canActivate: [tutorialGuard],
+	},
+	{
 		path: '',
 		redirectTo: 'start',
 		pathMatch: 'full',

@@ -1,0 +1,35 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/categories"></ion-back-button>
+		</ion-buttons>
+		<ion-title>Nueva Categoría</ion-title>
+		<ion-buttons slot="end">
+			<ion-button (click)="saveCategory()">
+				<ion-icon [icon]="checkIcon" size="large" color="primary"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<ion-list>
+		<ion-item>
+			<ion-label position="stacked">Nombre</ion-label>
+			<ion-input [(ngModel)]="category.name" placeholder="Ingrese el nombre de la categoría"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label position="stacked">Color</ion-label>
+			<div class="color-grid">
+				<div
+					*ngFor="let color of colors"
+					class="color-circle"
+					[style.background-color]="color"
+					[class.selected]="selectedColor === color"
+					(click)="selectColor(color)"
+				></div>
+			</div>
+		</ion-item>
+	</ion-list>
+</ion-content>
