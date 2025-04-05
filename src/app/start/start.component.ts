@@ -8,11 +8,11 @@ register()
 @Component({
 	imports: [IonContent, NgIf],
 	selector: 'app-home',
-	templateUrl: 'start.page.html',
-	styleUrls: ['start.page.scss'],
+	templateUrl: 'start.component.html',
+	styleUrls: ['start.component.scss'],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class StartPage {
+export class StartComponent {
 	private swiper: any // It's a swiper reference
 
 	constructor() {}
