@@ -1,21 +1,5 @@
 import Dexie, { Table } from 'dexie'
-
-interface Task {
-	id?: number
-	title: string
-	description: string
-}
-
-interface Category {
-	id?: number
-	title: string
-	color: string
-}
-
-interface TaskCategory {
-	task_id: number
-	category_id: number
-}
+import { Task, Category, TaskCategory } from '../models/business/task.model'
 
 export class TaskDatabase extends Dexie {
 	tasks!: Table<Task>
