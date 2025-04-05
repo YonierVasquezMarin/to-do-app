@@ -2,6 +2,8 @@ import { NgIf } from '@angular/common'
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { IonContent } from '@ionic/angular/standalone'
 import { register } from 'swiper/element/bundle'
+import { Router } from '@angular/router'
+import { StorageService } from '../../services/storage.service'
 
 register()
 
@@ -15,7 +17,7 @@ register()
 export class StartComponent {
 	private swiper: any // It's a swiper reference
 
-	constructor() {}
+	constructor(private router: Router, private storageService: StorageService) {}
 
 	ngAfterViewInit() {
 		// Initialize swiper element
@@ -38,7 +40,8 @@ export class StartComponent {
 		return this.swiper && this.swiper.isEnd
 	}
 
-	start() {
-		console.log('Iniciar la aplicación')
+	async start() {
+		await this.storageService.set('start-tutorial-watched', true)
+		this.router.navigate(['/home'])
 	}
 }
