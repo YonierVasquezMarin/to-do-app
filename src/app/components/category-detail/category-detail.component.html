@@ -13,23 +13,33 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-	<ion-list>
-		<ion-item>
-			<ion-label position="stacked">Nombre</ion-label>
-			<ion-input [(ngModel)]="category.name" placeholder="Ingrese el nombre de la categoría"></ion-input>
-		</ion-item>
+	<form [formGroup]="categoryForm">
+		<ion-list>
+			<!-- Name -->
+			<ion-item>
+				<ion-label position="stacked">Nombre</ion-label>
+				<ion-input
+					formControlName="title"
+					placeholder="Ingrese el nombre de la categoría"
+					maxlength="60"
+				></ion-input>
+			</ion-item>
+			<app-error-message [message]="titleError"></app-error-message>
 
-		<ion-item>
-			<ion-label position="stacked">Color</ion-label>
-			<div class="color-grid">
-				<div
-					*ngFor="let color of colors"
-					class="color-circle"
-					[style.background-color]="color"
-					[class.selected]="selectedColor === color"
-					(click)="selectColor(color)"
-				></div>
-			</div>
-		</ion-item>
-	</ion-list>
+			<!-- Color -->
+			<ion-item>
+				<ion-label position="stacked">Color</ion-label>
+				<div class="color-grid">
+					<div
+						*ngFor="let color of colors"
+						class="color-circle"
+						[style.background-color]="color"
+						[class.selected]="selectedColor === color"
+						(click)="selectColor(color)"
+					></div>
+				</div>
+			</ion-item>
+			<app-error-message [message]="colorError"></app-error-message>
+		</ion-list>
+	</form>
 </ion-content>

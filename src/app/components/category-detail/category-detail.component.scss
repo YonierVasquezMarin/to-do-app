@@ -29,10 +29,10 @@
 
 ion-item {
     --border-style: none;
-    --padding-bottom: 16px;
+    --padding-bottom: 6px;
 
     &:not(:first-child) {
-        --padding-top: 16px;
+        --padding-top: 10px;
     }
 
     ion-label {
