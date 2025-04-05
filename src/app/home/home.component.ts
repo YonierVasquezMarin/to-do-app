@@ -9,13 +9,12 @@ import {
 	IonButtons,
 	IonButton,
 	IonPopover,
-	IonList,
-	IonItem,
 } from '@ionic/angular/standalone'
 import { TaskListComponent } from '../components/task-list/task-list.component'
-import { addOutline, ellipsisVertical, sparklesOutline, pricetagOutline } from 'ionicons/icons'
+import { addOutline, ellipsisVertical } from 'ionicons/icons'
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { Router } from '@angular/router'
+import { MenuOptionsComponent } from '../specific-components/menu-options/menu-options.component'
 
 @Component({
 	selector: 'app-home',
@@ -33,8 +32,7 @@ import { Router } from '@angular/router'
 		IonButtons,
 		IonButton,
 		IonPopover,
-		IonList,
-		IonItem,
+		MenuOptionsComponent,
 	],
 	standalone: true,
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -42,8 +40,6 @@ import { Router } from '@angular/router'
 export class HomeComponent implements OnInit {
 	addIcon = addOutline
 	menuIcon = ellipsisVertical
-	starIcon = sparklesOutline
-	tagIcon = pricetagOutline
 
 	constructor(private router: Router) {}
 

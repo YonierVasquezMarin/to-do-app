@@ -9,16 +9,7 @@
 
 		<ion-popover trigger="menu-trigger" [dismissOnSelect]="true" class="menu-popover">
 			<ng-template>
-				<ion-list lines="none" class="compact-menu">
-					<ion-item button detail="false" (click)="onAdvancedFeatures()" class="menu-item">
-						<ion-icon [icon]="starIcon" slot="start" class="menu-icon"></ion-icon>
-						<ion-label>Funciones avanzadas</ion-label>
-					</ion-item>
-					<ion-item button detail="false" (click)="onCategories()" class="menu-item">
-						<ion-icon [icon]="tagIcon" slot="start" class="menu-icon"></ion-icon>
-						<ion-label>Categorías</ion-label>
-					</ion-item>
-				</ion-list>
+				<app-menu-options></app-menu-options>
 			</ng-template>
 		</ion-popover>
 	</ion-toolbar>
