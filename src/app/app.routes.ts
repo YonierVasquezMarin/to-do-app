@@ -19,6 +19,12 @@ export const routes: Routes = [
 		canActivate: [tutorialGuard],
 	},
 	{
+		path: 'categories',
+		loadComponent: () =>
+			import('./components/categories-list/categories-list.component').then((m) => m.CategoriesListComponent),
+		canActivate: [tutorialGuard],
+	},
+	{
 		path: '',
 		redirectTo: 'start',
 		pathMatch: 'full',

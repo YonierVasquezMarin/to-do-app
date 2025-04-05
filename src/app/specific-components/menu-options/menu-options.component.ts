@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { IonicModule } from '@ionic/angular'
 import { sparklesOutline, pricetagOutline } from 'ionicons/icons'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-menu-options',
@@ -13,11 +14,13 @@ export class MenuOptionsComponent {
 	starIcon = sparklesOutline
 	tagIcon = pricetagOutline
 
+	constructor(private router: Router) {}
+
 	onAdvancedFeatures() {
 		// Implementar la navegación a funciones avanzadas
 	}
 
 	onCategories() {
-		// Implementar la navegación a categorías
+		this.router.navigate(['/categories'])
 	}
 }
