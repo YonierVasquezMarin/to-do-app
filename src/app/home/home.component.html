@@ -6,4 +6,10 @@
 
 <ion-content>
 	<app-task-list></app-task-list>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="navigateToTaskDetail()">
+			<ion-icon [icon]="addIcon"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
 </ion-content>

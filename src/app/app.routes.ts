@@ -13,6 +13,12 @@ export const routes: Routes = [
 		canActivate: [tutorialGuard],
 	},
 	{
+		path: 'task-detail',
+		loadComponent: () =>
+			import('./components/task-detail/task-detail.component').then((m) => m.TaskDetailComponent),
+		canActivate: [tutorialGuard],
+	},
+	{
 		path: '',
 		redirectTo: 'start',
 		pathMatch: 'full',
