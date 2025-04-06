@@ -16,7 +16,7 @@
 	<!-- Category list -->
 	<ion-list>
 		<ion-item-group>
-			<ion-item *ngFor="let category of categories; let i = index">
+			<ion-item *ngFor="let category of categories; let i = index" (click)="navigateToEditCategory(category)">
 				<div class="category-circle" [ngStyle]="{ 'background-color': category.color }"></div>
 				<ion-label>{{ category.title }}</ion-label>
 			</ion-item>

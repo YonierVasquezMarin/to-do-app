@@ -3,7 +3,7 @@
 		<ion-buttons slot="start">
 			<ion-back-button defaultHref="/categories"></ion-back-button>
 		</ion-buttons>
-		<ion-title>Nueva Categoría</ion-title>
+		<ion-title>{{ isEdit ? "Editar Categoría" : "Nueva Categoría" }}</ion-title>
 		<ion-buttons slot="end">
 			<ion-button (click)="saveCategory()">
 				<ion-icon [icon]="checkIcon" size="large" color="primary"></ion-icon>

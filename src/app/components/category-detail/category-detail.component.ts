@@ -21,6 +21,7 @@ import {
 	IonIcon,
 	ToastController,
 } from '@ionic/angular/standalone'
+import { Category } from '../../../models/business/task.model'
 
 @Component({
 	selector: 'app-category-detail',
@@ -48,6 +49,8 @@ import {
 export class CategoryDetailComponent implements OnInit {
 	checkIcon = checkmarkOutline
 	categoryForm: FormGroup
+	isEdit = false
+	category?: Category
 
 	colors = [
 		'#FF6B6B',
@@ -75,6 +78,13 @@ export class CategoryDetailComponent implements OnInit {
 		private router: Router,
 		private toastController: ToastController
 	) {
+		const navigation = this.router.getCurrentNavigation()
+		if (navigation?.extras.state) {
+			const state = navigation.extras.state as { category: Category; isEdit: boolean }
+			this.category = state.category
+			this.isEdit = state.isEdit
+		}
+
 		this.categoryForm = this.formBuilder.group({
 			title: ['', [Validators.required, Validators.maxLength(60)]],
 			color: ['', [Validators.required]],
@@ -82,7 +92,15 @@ export class CategoryDetailComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.resetForm()
+		if (this.category) {
+			this.categoryForm.patchValue({
+				title: this.category.title,
+				color: this.category.color,
+			})
+			this.selectedColor = this.category.color
+		} else {
+			this.resetForm()
+		}
 	}
 
 	resetForm() {
@@ -98,8 +116,11 @@ export class CategoryDetailComponent implements OnInit {
 	async saveCategory() {
 		if (this.categoryForm.valid) {
 			try {
-				await this.categoryService.addCategory(this.categoryForm.value)
-				await this.showSuccessfulToast()
+				if (this.isEdit && this.category) {
+					await this.createTask()
+				} else {
+					await this.editTask()
+				}
 				this.router.navigate(['/categories'])
 			} catch (error) {
 				console.error('Error al guardar la categoría:', error)
@@ -110,9 +131,22 @@ export class CategoryDetailComponent implements OnInit {
 		}
 	}
 
-	private async showSuccessfulToast() {
+	private async createTask() {
+		await this.categoryService.updateCategory({
+			...this.category,
+			...this.categoryForm.value,
+		})
+		await this.showSuccessfulToast('Categoría actualizada exitosamente')
+	}
+
+	private async editTask() {
+		await this.categoryService.addCategory(this.categoryForm.value)
+		await this.showSuccessfulToast('Categoría creada exitosamente')
+	}
+
+	private async showSuccessfulToast(message: string = 'Categoría creada exitosamente') {
 		const toast = await this.toastController.create({
-			message: 'Categoría creada exitosamente',
+			message,
 			duration: 2000,
 			position: 'bottom',
 			color: 'success',
@@ -123,7 +157,7 @@ export class CategoryDetailComponent implements OnInit {
 
 	private async showErrorToast() {
 		const toast = await this.toastController.create({
-			message: 'Error al crear la categoría',
+			message: 'Error al guardar la categoría',
 			duration: 2000,
 			position: 'bottom',
 			color: 'danger',

@@ -31,4 +31,10 @@ export class CategoriesListComponent implements OnInit {
 	navigateToNewCategory() {
 		this.router.navigate(['/category-detail'])
 	}
+
+	navigateToEditCategory(category: Category) {
+		this.router.navigate(['/category-detail'], {
+			state: { category: category, isEdit: true },
+		})
+	}
 }
