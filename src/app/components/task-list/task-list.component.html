@@ -1,6 +1,6 @@
 <div class="task-container">
 	<!-- Filter chip -->
-	<div class="filter-container">
+	<div class="filter-container" *ngIf="tasks && tasks.length > 0">
 		<ion-chip [color]="isFilterActive ? 'primary' : 'medium'" (click)="openCategoriesModal()" class="filter-chip">
 			<ion-icon [icon]="filterIcon"></ion-icon>
 			<ion-label>Filtrar</ion-label>
