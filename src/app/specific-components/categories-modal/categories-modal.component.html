@@ -13,8 +13,8 @@
 			</div>
 
 			<!-- Category list -->
-			<ion-list *ngIf="availableCategories && availableCategories.length > 0">
-				<ion-item *ngFor="let category of availableCategories" (click)="toggleCategory(category)">
+			<ion-list lines="none" *ngIf="availableCategories && availableCategories.length > 0">
+				<ion-item lines="none" *ngFor="let category of availableCategories" (click)="toggleCategory(category)">
 					<div slot="start" class="category-color-dot" [style.background-color]="category.color"></div>
 					<ion-label>{{ category.name }}</ion-label>
 					<ion-icon

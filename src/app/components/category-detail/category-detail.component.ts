@@ -65,7 +65,7 @@ export class CategoryDetailComponent implements OnInit {
 		'#9B59B6',
 		'#3498DB',
 		'#1ABC9C',
-		'#F1C40F',
+		'#8B9467',
 		'#E74C3C',
 		'#2ECC71',
 		'#34495E',

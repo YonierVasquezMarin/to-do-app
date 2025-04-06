@@ -14,5 +14,5 @@ export interface Task {
 	title: string
 	description: string
 	state_id: number
-	categories?: Category[]
+	categories_ids?: number[]
 }

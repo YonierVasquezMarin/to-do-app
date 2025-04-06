@@ -74,6 +74,7 @@ export class TaskDetailComponent implements OnInit {
 	isEdit = false
 	isCategoriesModalOpen = false
 	availableCategories: Category[] = []
+	selectedCategoryIds: number[] = []
 	selectedCategories: Category[] = []
 
 	constructor(
@@ -102,8 +103,9 @@ export class TaskDetailComponent implements OnInit {
 				description: this.task.description,
 			})
 			// Load categories from task if they exist
-			if (this.task.categories) {
-				this.selectedCategories = this.task.categories
+			if (this.task.categories_ids) {
+				this.selectedCategoryIds = this.task.categories_ids
+				this.updateSelectedCategories()
 			}
 		} else {
 			this.resetForm()
@@ -112,12 +114,21 @@ export class TaskDetailComponent implements OnInit {
 		this.loadCategories()
 	}
 
+	private async updateSelectedCategories() {
+		this.selectedCategories = this.availableCategories.filter((cat) => this.selectedCategoryIds.includes(cat.id!))
+	}
+
 	private async loadCategories() {
 		this.availableCategories = await this.categoryService.getCategories()
+		if (this.selectedCategoryIds.length > 0) {
+			this.updateSelectedCategories()
+		}
 	}
 
 	private resetForm() {
 		this.taskForm.reset()
+		this.selectedCategoryIds = []
+		this.selectedCategories = []
 	}
 
 	async saveTask() {
@@ -142,7 +153,7 @@ export class TaskDetailComponent implements OnInit {
 		await this.taskService.updateTask({
 			id: this.task?.id,
 			...this.taskForm.value,
-			categories: this.selectedCategories,
+			categories_ids: this.selectedCategoryIds,
 		})
 		await this.showSuccessfulToast('Tarea actualizada')
 	}
@@ -151,7 +162,7 @@ export class TaskDetailComponent implements OnInit {
 		await this.taskService.createTask({
 			...this.taskForm.value,
 			state_id: 1, // Pending state by default
-			categories: this.selectedCategories,
+			categories_ids: this.selectedCategoryIds,
 		})
 		await this.showSuccessfulToast('Tarea creada')
 	}
@@ -232,18 +243,23 @@ export class TaskDetailComponent implements OnInit {
 	}
 
 	onCategoryToggled(category: Category) {
-		const index = this.selectedCategories.findIndex((c) => c.id === category.id)
+		const categoryId = category.id!
+		const index = this.selectedCategoryIds.indexOf(categoryId)
 		if (index === -1) {
+			this.selectedCategoryIds.push(categoryId)
 			this.selectedCategories.push(category)
 		} else {
-			this.selectedCategories.splice(index, 1)
+			this.selectedCategoryIds.splice(index, 1)
+			this.selectedCategories = this.selectedCategories.filter((c) => c.id !== categoryId)
 		}
 	}
 
 	removeCategory(category: Category) {
-		const index = this.selectedCategories.findIndex((c) => c.id === category.id)
+		const categoryId = category.id!
+		const index = this.selectedCategoryIds.indexOf(categoryId)
 		if (index !== -1) {
-			this.selectedCategories.splice(index, 1)
+			this.selectedCategoryIds.splice(index, 1)
+			this.selectedCategories = this.selectedCategories.filter((c) => c.id !== categoryId)
 		}
 	}
 }
