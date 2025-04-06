@@ -36,6 +36,11 @@ export class TaskListComponent implements OnInit {
 		await this.loadTasks()
 	}
 
+	ionViewWillEnter() {
+		this.loadTasks()
+		this.loadCategories()
+	}
+
 	private async loadCategories(): Promise<void> {
 		try {
 			this.categories = await this.categoryService.getCategories()

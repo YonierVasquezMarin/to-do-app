@@ -1,4 +1,4 @@
-import { Category } from '../models/business/task.model'
+import { Category, Task } from '../models/business/task.model'
 import { Injectable } from '@angular/core'
 import db from './database.service'
 
@@ -67,12 +67,26 @@ export class CategoryService {
 	}
 
 	/**
-	 * Deletes a category by its ID
+	 * Deletes a category by its ID and removes it from all tasks that have it
 	 * @param id ID of the category to delete
 	 * @returns Promise<void>
 	 */
 	public async deleteCategory(id: number): Promise<void> {
 		try {
+			// First we get all tasks that have this category
+			const tasksWithCategory = await db.tasks
+				.filter((task: Task) => task.categories_ids?.includes(id) ?? false)
+				.toArray()
+
+			// We update each task to remove the category
+			await Promise.all(
+				tasksWithCategory.map(async (task: Task) => {
+					const updatedCategoryIds = task.categories_ids?.filter((catId: number) => catId !== id) || []
+					await db.tasks.update(task.id!, { ...task, categories_ids: updatedCategoryIds })
+				})
+			)
+
+			// Finally we delete the category
 			await db.categories.delete(id)
 		} catch (error) {
 			console.error('Error deleting category:', error)
