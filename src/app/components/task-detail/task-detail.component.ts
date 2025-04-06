@@ -5,7 +5,14 @@ import { Task, Category } from '../../../models/business/task.model'
 import { TaskService } from '../../../services/task.service'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
-import { checkmarkOutline, closeOutline, trashOutline, addCircleOutline, closeCircleOutline } from 'ionicons/icons'
+import {
+	checkmarkOutline,
+	closeOutline,
+	trashOutline,
+	addCircleOutline,
+	closeCircleOutline,
+	checkmarkCircleOutline,
+} from 'ionicons/icons'
 import {
 	IonHeader,
 	IonToolbar,
@@ -60,6 +67,7 @@ export class TaskDetailComponent implements OnInit {
 	trashIcon = trashOutline
 	addIcon = addCircleOutline
 	closeIcon = closeCircleOutline
+	completeIcon = checkmarkCircleOutline
 	taskForm: FormGroup
 	task?: Task
 	isEdit = false
@@ -177,6 +185,22 @@ export class TaskDetailComponent implements OnInit {
 				this.router.navigate(['/home'])
 			} catch (error) {
 				console.error('Error al eliminar la tarea:', error)
+				await this.showErrorToast()
+			}
+		}
+	}
+
+	async completeTask() {
+		if (this.task?.id) {
+			try {
+				await this.taskService.updateTask({
+					...this.task,
+					state_id: 2, // Estado completado
+				})
+				await this.showSuccessfulToast('Tarea completada')
+				this.router.navigate(['/home'])
+			} catch (error) {
+				console.error('Error al completar la tarea:', error)
 				await this.showErrorToast()
 			}
 		}

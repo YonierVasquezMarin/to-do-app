@@ -71,9 +71,14 @@
 	></app-categories-modal>
 </ion-content>
 
-<!-- Bottom FAB for delete task -->
+<!-- Bottom FABs -->
 <ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px" *ngIf="isEdit">
-	<ion-fab-button color="light" (click)="deleteTask()">
-		<ion-icon [icon]="trashIcon" color="danger"></ion-icon>
-	</ion-fab-button>
+	<div style="display: flex; gap: 56px">
+		<ion-fab-button color="light" (click)="completeTask()">
+			<ion-icon [icon]="completeIcon" color="success"></ion-icon>
+		</ion-fab-button>
+		<ion-fab-button color="light" (click)="deleteTask()">
+			<ion-icon [icon]="trashIcon" color="danger"></ion-icon>
+		</ion-fab-button>
+	</div>
 </ion-fab>
