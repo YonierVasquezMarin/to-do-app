@@ -6,7 +6,7 @@
 		<ion-title>{{ isEdit ? "Editar tarea" : "Nueva tarea" }}</ion-title>
 		<ion-buttons slot="end">
 			<ion-button (click)="saveTask()">
-				<ion-icon [icon]="checkIcon" size="large" color="primary"></ion-icon>
+				<ion-label color="primary">Guardar</ion-label>
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
@@ -83,7 +83,7 @@
 <ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px" *ngIf="isEdit">
 	<div style="display: flex; gap: 56px">
 		<ion-fab-button color="light" (click)="completeTask()">
-			<ion-icon [icon]="completeIcon" color="success"></ion-icon>
+			<ion-icon [icon]="checkIcon" color="success" size="large"></ion-icon>
 		</ion-fab-button>
 		<ion-fab-button color="light" (click)="deleteTask()">
 			<ion-icon [icon]="trashIcon" color="danger"></ion-icon>

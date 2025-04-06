@@ -6,14 +6,15 @@ import { TaskService } from '../../../services/task.service'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
 import {
-	checkmarkOutline,
-	closeOutline,
 	trashOutline,
 	addCircleOutline,
 	closeCircleOutline,
 	checkmarkCircleOutline,
 	timeOutline,
+	checkmarkOutline,
 } from 'ionicons/icons'
+import { CategoryService } from 'src/services/category.service'
+import { CategoriesModalComponent } from '../../specific-components/categories-modal/categories-modal.component'
 import {
 	IonHeader,
 	IonToolbar,
@@ -32,8 +33,6 @@ import {
 	IonTextarea,
 	IonChip,
 } from '@ionic/angular/standalone'
-import { CategoryService } from 'src/services/category.service'
-import { CategoriesModalComponent } from '../../specific-components/categories-modal/categories-modal.component'
 
 @Component({
 	selector: 'app-task-detail',
@@ -163,7 +162,7 @@ export class TaskDetailComponent implements OnInit {
 			duration: 2000,
 			position: 'bottom',
 			color: 'success',
-			icon: checkmarkOutline,
+			icon: checkmarkCircleOutline,
 		})
 		await toast.present()
 	}
@@ -174,7 +173,7 @@ export class TaskDetailComponent implements OnInit {
 			duration: 2000,
 			position: 'bottom',
 			color: 'danger',
-			icon: closeOutline,
+			icon: closeCircleOutline,
 		})
 		await toast.present()
 	}
@@ -197,7 +196,7 @@ export class TaskDetailComponent implements OnInit {
 			try {
 				await this.taskService.updateTask({
 					...this.task,
-					state_id: 2, // Estado completado
+					state_id: 2, // Completed state
 				})
 				await this.showSuccessfulToast('Tarea completada')
 				this.router.navigate(['/home'])
