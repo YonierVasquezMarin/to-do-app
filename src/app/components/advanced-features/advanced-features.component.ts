@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { IonicModule } from '@ionic/angular'
+import { sparkles } from 'ionicons/icons'
 
 @Component({
 	selector: 'app-advanced-features',
@@ -9,5 +10,7 @@ import { IonicModule } from '@ionic/angular'
 	imports: [IonicModule],
 })
 export class AdvancedFeaturesComponent {
+	sparklesIcon = sparkles
+
 	constructor() {}
 }

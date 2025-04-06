@@ -8,12 +8,21 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-	<ion-list>
-		<ion-item>
-			<ion-label>
-				<h2>Bienvenido a las funciones avanzadas</h2>
-				<p>Aquí encontrarás funcionalidades adicionales de la aplicación</p>
-			</ion-label>
-		</ion-item>
-	</ion-list>
+	<ion-card class="feature-card">
+		<ion-card-content>
+			<div class="feature-content">
+				<ion-icon [icon]="sparklesIcon" color="primary" class="feature-icon"></ion-icon>
+				<div class="feature-text">
+					<ion-chip color="success" class="status-chip">
+						<ion-label>Activo</ion-label>
+					</ion-chip>
+					<h2>Ampliación de descripciones con IA</h2>
+					<p>
+						Amplia facilmente detalles extra de tus tareas, encuentra esta opción al momento de crear o
+						editar una tarea
+					</p>
+				</div>
+			</div>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
