@@ -63,46 +63,12 @@
 		</ion-list>
 	</form>
 
-	<!-- Modal de Categorías -->
-	<ion-modal
-		#categoriesModal
-		[breakpoints]="[0, 0.5, 0.8]"
-		[initialBreakpoint]="0.5"
-		[isOpen]="isCategoriesModalOpen"
-		(didDismiss)="isCategoriesModalOpen = false"
-	>
-		<ng-template>
-			<ion-content>
-				<!-- Empty state message -->
-				<div
-					class="empty-state ion-text-center"
-					*ngIf="!availableCategories || availableCategories.length === 0"
-				>
-					<ion-text color="medium">
-						<h4>No hay categorías creadas</h4>
-						<p class="ion-text-small">
-							Para crear una categoría <br />
-							ve al menú principal > <ion-icon [icon]="menuIcon" size="small"></ion-icon> > Categorías
-						</p>
-					</ion-text>
-				</div>
-
-				<!-- Category list -->
-				<ion-list *ngIf="availableCategories && availableCategories.length > 0">
-					<ion-item *ngFor="let category of availableCategories" (click)="toggleCategory(category)">
-						<div slot="start" class="category-color-dot" [style.background-color]="category.color"></div>
-						<ion-label>{{ category.name }}</ion-label>
-						<ion-icon
-							*ngIf="isCategorySelected(category)"
-							[icon]="checkIcon"
-							color="primary"
-							slot="end"
-						></ion-icon>
-					</ion-item>
-				</ion-list>
-			</ion-content>
-		</ng-template>
-	</ion-modal>
+	<app-categories-modal
+		[(isOpen)]="isCategoriesModalOpen"
+		[availableCategories]="availableCategories"
+		[selectedCategories]="selectedCategories"
+		(categoryToggled)="onCategoryToggled($event)"
+	></app-categories-modal>
 </ion-content>
 
 <!-- Bottom FAB for delete task -->

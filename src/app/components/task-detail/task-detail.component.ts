@@ -1,18 +1,11 @@
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core'
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { Task, Category } from '../../../models/business/task.model'
 import { TaskService } from '../../../services/task.service'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
-import {
-	checkmarkOutline,
-	closeOutline,
-	trashOutline,
-	addCircleOutline,
-	closeCircleOutline,
-	ellipsisVertical,
-} from 'ionicons/icons'
+import { checkmarkOutline, closeOutline, trashOutline, addCircleOutline, closeCircleOutline } from 'ionicons/icons'
 import {
 	IonHeader,
 	IonToolbar,
@@ -30,9 +23,9 @@ import {
 	IonFabButton,
 	IonTextarea,
 	IonChip,
-	IonModal,
 } from '@ionic/angular/standalone'
 import { CategoryService } from 'src/services/category.service'
+import { CategoriesModalComponent } from '../../specific-components/categories-modal/categories-modal.component'
 
 @Component({
 	selector: 'app-task-detail',
@@ -58,18 +51,15 @@ import { CategoryService } from 'src/services/category.service'
 		IonFabButton,
 		IonTextarea,
 		IonChip,
-		IonModal,
+		CategoriesModalComponent,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TaskDetailComponent implements OnInit {
-	@ViewChild('categoriesModal') categoriesModal!: IonModal
-
 	checkIcon = checkmarkOutline
 	trashIcon = trashOutline
 	addIcon = addCircleOutline
 	closeIcon = closeCircleOutline
-	menuIcon = ellipsisVertical
 	taskForm: FormGroup
 	task?: Task
 	isEdit = false
@@ -216,7 +206,7 @@ export class TaskDetailComponent implements OnInit {
 		this.isCategoriesModalOpen = true
 	}
 
-	toggleCategory(category: Category) {
+	onCategoryToggled(category: Category) {
 		const index = this.selectedCategories.findIndex((c) => c.id === category.id)
 		if (index === -1) {
 			this.selectedCategories.push(category)
@@ -230,9 +220,5 @@ export class TaskDetailComponent implements OnInit {
 		if (index !== -1) {
 			this.selectedCategories.splice(index, 1)
 		}
-	}
-
-	isCategorySelected(category: Category): boolean {
-		return this.selectedCategories.some((c) => c.id === category.id)
 	}
 }
