@@ -20,6 +20,7 @@ import { checkmarkOutline, closeOutline } from 'ionicons/icons'
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
+import { Task } from '../../../models/business/task.model'
 
 @Component({
 	selector: 'app-task-detail',
@@ -47,6 +48,8 @@ import { Router } from '@angular/router'
 export class TaskDetailComponent implements OnInit {
 	checkIcon = checkmarkOutline
 	taskForm: FormGroup
+	task?: Task
+	isEdit = false
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -54,6 +57,12 @@ export class TaskDetailComponent implements OnInit {
 		private router: Router,
 		private toastController: ToastController
 	) {
+		const navigation = this.router.getCurrentNavigation()
+		if (navigation?.extras.state) {
+			this.task = navigation.extras.state['task']
+			this.isEdit = navigation.extras.state['isEdit']
+		}
+
 		this.taskForm = this.formBuilder.group({
 			title: ['', [Validators.required, Validators.maxLength(50)]],
 			description: ['', [Validators.maxLength(200)]],
@@ -61,7 +70,14 @@ export class TaskDetailComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.resetForm()
+		if (this.isEdit && this.task) {
+			this.taskForm.patchValue({
+				title: this.task.title,
+				description: this.task.description,
+			})
+		} else {
+			this.resetForm()
+		}
 	}
 
 	private resetForm() {
@@ -71,8 +87,11 @@ export class TaskDetailComponent implements OnInit {
 	async saveTask() {
 		if (this.taskForm.valid) {
 			try {
-				await this.taskService.createTask(this.taskForm.value)
-				await this.showSuccessfulToast()
+				if (this.isEdit && this.task?.id) {
+					await this.editTask()
+				} else {
+					await this.createTask()
+				}
 				this.router.navigate(['/home'])
 			} catch (error) {
 				console.error('Error al guardar la tarea:', error)
@@ -83,9 +102,22 @@ export class TaskDetailComponent implements OnInit {
 		}
 	}
 
-	private async showSuccessfulToast() {
+	private async editTask() {
+		await this.taskService.updateTask({
+			id: this.task?.id,
+			...this.taskForm.value,
+		})
+		await this.showSuccessfulToast('Tarea actualizada exitosamente')
+	}
+
+	private async createTask() {
+		await this.taskService.createTask(this.taskForm.value)
+		await this.showSuccessfulToast('Tarea creada exitosamente')
+	}
+
+	private async showSuccessfulToast(message: string = 'Tarea creada exitosamente') {
 		const toast = await this.toastController.create({
-			message: 'Tarea creada exitosamente',
+			message,
 			duration: 2000,
 			position: 'bottom',
 			color: 'success',

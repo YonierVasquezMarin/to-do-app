@@ -4,6 +4,7 @@ import { Task } from '../../../models/business/task.model'
 import { Component, OnInit } from '@angular/core'
 import { libraryOutline } from 'ionicons/icons'
 import { CommonModule } from '@angular/common'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-task-list',
@@ -18,7 +19,7 @@ export class TaskListComponent implements OnInit {
 	// Array to store the tasks
 	tasks: Task[] = []
 
-	constructor(private taskService: TaskService) {}
+	constructor(private taskService: TaskService, private router: Router) {}
 
 	async ngOnInit() {
 		await this.loadTasks()
@@ -33,5 +34,11 @@ export class TaskListComponent implements OnInit {
 		} catch (error) {
 			console.error('Error loading tasks:', error)
 		}
+	}
+
+	onTaskClick(task: Task) {
+		this.router.navigate(['/task-detail'], {
+			state: { task, isEdit: true },
+		})
 	}
 }

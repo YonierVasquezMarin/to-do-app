@@ -3,7 +3,7 @@
 		<ion-buttons slot="start">
 			<ion-back-button defaultHref="/home"></ion-back-button>
 		</ion-buttons>
-		<ion-title>Nueva tarea</ion-title>
+		<ion-title>{{ isEdit ? "Editar tarea" : "Nueva tarea" }}</ion-title>
 		<ion-buttons slot="end">
 			<ion-button (click)="saveTask()">
 				<ion-icon [icon]="checkIcon" size="large" color="primary"></ion-icon>

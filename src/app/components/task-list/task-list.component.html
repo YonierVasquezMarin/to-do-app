@@ -1,5 +1,5 @@
 <main class="task-container">
-	<ion-card *ngFor="let task of tasks" class="task-card">
+	<ion-card *ngFor="let task of tasks" class="task-card" (click)="onTaskClick(task)">
 		<ion-card-content class="task-content">
 			<ion-icon [icon]="libraryOutline" class="task-icon" color="medium"></ion-icon>
 			<ion-text>

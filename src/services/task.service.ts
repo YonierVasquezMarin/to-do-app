@@ -62,4 +62,18 @@ export class TaskService {
 			throw error
 		}
 	}
+
+	/**
+	 * Updates an existing task in the database
+	 * @param task Task to update
+	 * @returns Promise<void>
+	 */
+	public async updateTask(task: Task): Promise<void> {
+		try {
+			await db.tasks.update(task.id!, task)
+		} catch (error) {
+			console.error('Error updating task:', error)
+			throw error
+		}
+	}
 }
