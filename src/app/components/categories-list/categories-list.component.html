@@ -13,8 +13,17 @@
 </ion-header>
 
 <ion-content>
+	<!-- Empty state message -->
+	<div class="empty-state" *ngIf="!categories || categories.length === 0">
+		<ion-img src="assets/empty-view/empty-view.png" class="empty-state-image"></ion-img>
+		<ion-text color="medium">
+			<h2>No hay categorías</h2>
+			<p>Cuando crees una categoría, aparecerá aquí</p>
+		</ion-text>
+	</div>
+
 	<!-- Category list -->
-	<ion-list>
+	<ion-list *ngIf="categories && categories.length > 0">
 		<ion-item-group>
 			<ion-item *ngFor="let category of categories; let i = index" (click)="navigateToEditCategory(category)">
 				<div class="category-circle" [ngStyle]="{ 'background-color': category.color }"></div>

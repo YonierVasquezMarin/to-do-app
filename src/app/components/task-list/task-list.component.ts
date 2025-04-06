@@ -1,4 +1,4 @@
-import { IonIcon, IonCard, IonCardContent, IonText } from '@ionic/angular/standalone'
+import { IonIcon, IonCard, IonCardContent, IonText, IonImg } from '@ionic/angular/standalone'
 import { TaskService } from '../../../services/task.service'
 import { Task } from '../../../models/business/task.model'
 import { Component, OnInit } from '@angular/core'
@@ -11,7 +11,7 @@ import { Router } from '@angular/router'
 	templateUrl: './task-list.component.html',
 	styleUrls: ['./task-list.component.scss'],
 	standalone: true,
-	imports: [CommonModule, IonIcon, IonCard, IonCardContent, IonText],
+	imports: [CommonModule, IonIcon, IonCard, IonCardContent, IonText, IonImg],
 })
 export class TaskListComponent implements OnInit {
 	libraryOutline = libraryOutline

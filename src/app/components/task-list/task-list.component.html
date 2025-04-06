@@ -1,10 +1,22 @@
 <main class="task-container">
-	<ion-card *ngFor="let task of tasks" class="task-card" (click)="onTaskClick(task)">
-		<ion-card-content class="task-content">
-			<ion-icon [icon]="libraryOutline" class="task-icon" color="medium"></ion-icon>
-			<ion-text>
-				<h2>{{ task.title }}</h2>
-			</ion-text>
-		</ion-card-content>
-	</ion-card>
+	<!-- Empty state message -->
+	<div class="empty-state" *ngIf="!tasks || tasks.length === 0">
+		<ion-img src="assets/empty-view/empty-view.png" class="empty-state-image"></ion-img>
+		<ion-text color="medium">
+			<h2>No hay tareas pendientes</h2>
+			<p>Cuando crees una tarea, aparecerán aquí</p>
+		</ion-text>
+	</div>
+
+	<!-- Task list -->
+	<div *ngIf="tasks && tasks.length > 0">
+		<ion-card *ngFor="let task of tasks" class="task-card" (click)="onTaskClick(task)">
+			<ion-card-content class="task-content">
+				<ion-icon [icon]="libraryOutline" class="task-icon" color="medium"></ion-icon>
+				<ion-text>
+					<h2>{{ task.title }}</h2>
+				</ion-text>
+			</ion-card-content>
+		</ion-card>
+	</div>
 </main>
