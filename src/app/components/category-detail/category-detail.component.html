@@ -46,8 +46,8 @@
 	</form>
 </ion-content>
 
-<!-- Botón flotante para eliminar -->
-<ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px">
+<!-- Boton for delete -->
+<ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px" *ngIf="isEdit">
 	<ion-fab-button color="light" (click)="deleteCategory()">
 		<ion-icon [icon]="trashIcon" color="danger"></ion-icon>
 	</ion-fab-button>
