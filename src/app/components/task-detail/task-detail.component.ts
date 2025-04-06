@@ -114,7 +114,10 @@ export class TaskDetailComponent implements OnInit {
 	}
 
 	private async createTask() {
-		await this.taskService.createTask(this.taskForm.value)
+		await this.taskService.createTask({
+			...this.taskForm.value,
+			state_id: 1, // Pending state by default
+		})
 		await this.showSuccessfulToast('Tarea creada')
 	}
 
