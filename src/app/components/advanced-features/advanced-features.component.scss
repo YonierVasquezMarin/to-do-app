@@ -1,0 +1,17 @@
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-item {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  
+  h2 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+  }
+} 

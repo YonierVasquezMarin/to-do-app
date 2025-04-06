@@ -31,6 +31,14 @@ export const routes: Routes = [
 		canActivate: [tutorialGuard],
 	},
 	{
+		path: 'advanced-features',
+		loadComponent: () =>
+			import('./components/advanced-features/advanced-features.component').then(
+				(m) => m.AdvancedFeaturesComponent
+			),
+		canActivate: [tutorialGuard],
+	},
+	{
 		path: '',
 		redirectTo: 'start',
 		pathMatch: 'full',

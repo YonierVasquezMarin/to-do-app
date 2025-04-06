@@ -1,3 +1,8 @@
+import { MenuOptionsComponent } from '../specific-components/menu-options/menu-options.component'
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core'
+import { TaskListComponent } from '../components/task-list/task-list.component'
+import { addOutline, ellipsisVertical } from 'ionicons/icons'
+import { Router } from '@angular/router'
 import {
 	IonHeader,
 	IonToolbar,
@@ -10,11 +15,6 @@ import {
 	IonButton,
 	IonPopover,
 } from '@ionic/angular/standalone'
-import { TaskListComponent } from '../components/task-list/task-list.component'
-import { addOutline, ellipsisVertical } from 'ionicons/icons'
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core'
-import { Router } from '@angular/router'
-import { MenuOptionsComponent } from '../specific-components/menu-options/menu-options.component'
 
 @Component({
 	selector: 'app-home',
@@ -53,13 +53,5 @@ export class HomeComponent implements OnInit {
 
 	navigateToTaskDetail() {
 		this.router.navigate(['/task-detail'])
-	}
-
-	onAdvancedFeatures() {
-		console.log('Funciones adicionales seleccionada')
-	}
-
-	onCategories() {
-		console.log('Categorías seleccionada')
 	}
 }

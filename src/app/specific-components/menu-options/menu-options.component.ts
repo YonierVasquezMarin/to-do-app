@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { IonicModule } from '@ionic/angular'
-import { sparklesOutline, pricetagOutline } from 'ionicons/icons'
+import { sparkles, pricetag } from 'ionicons/icons'
 import { Router } from '@angular/router'
 
 @Component({
@@ -11,13 +11,13 @@ import { Router } from '@angular/router'
 	imports: [IonicModule],
 })
 export class MenuOptionsComponent {
-	starIcon = sparklesOutline
-	tagIcon = pricetagOutline
+	starIcon = sparkles
+	tagIcon = pricetag
 
 	constructor(private router: Router) {}
 
 	onAdvancedFeatures() {
-		// Implementar la navegación a funciones avanzadas
+		this.router.navigate(['/advanced-features'])
 	}
 
 	onCategories() {
