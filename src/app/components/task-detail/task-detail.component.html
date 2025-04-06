@@ -29,11 +29,13 @@
 			<!-- Descripción -->
 			<ion-item>
 				<ion-label position="stacked">Descripción (opcional)</ion-label>
-				<ion-input
+				<ion-textarea
 					formControlName="description"
 					placeholder="Ingrese la descripción de la tarea"
 					maxlength="200"
-				></ion-input>
+					[rows]="4"
+					autoGrow="true"
+				></ion-textarea>
 			</ion-item>
 		</ion-list>
 	</form>

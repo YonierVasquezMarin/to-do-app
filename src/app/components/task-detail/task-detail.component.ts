@@ -21,6 +21,7 @@ import {
 	IonIcon,
 	ToastController,
 	IonFabButton,
+	IonTextarea,
 } from '@ionic/angular/standalone'
 
 @Component({
@@ -44,6 +45,7 @@ import {
 		IonButton,
 		IonIcon,
 		IonFabButton,
+		IonTextarea,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
