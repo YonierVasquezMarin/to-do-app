@@ -1,6 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { IonModal, IonContent, IonList, IonItem, IonLabel, IonIcon, IonText } from '@ionic/angular/standalone'
+import {
+	IonModal,
+	IonContent,
+	IonList,
+	IonItem,
+	IonLabel,
+	IonIcon,
+	IonText,
+	IonButton,
+} from '@ionic/angular/standalone'
 import { Category } from '../../../models/business/task.model'
 import { ellipsisVertical, checkmarkOutline } from 'ionicons/icons'
 
@@ -9,7 +18,7 @@ import { ellipsisVertical, checkmarkOutline } from 'ionicons/icons'
 	templateUrl: './categories-modal.component.html',
 	styleUrls: ['./categories-modal.component.scss'],
 	standalone: true,
-	imports: [CommonModule, IonModal, IonContent, IonList, IonItem, IonLabel, IonIcon, IonText],
+	imports: [CommonModule, IonModal, IonContent, IonList, IonItem, IonLabel, IonIcon, IonText, IonButton],
 })
 export class CategoriesModalComponent {
 	@Input() isOpen = false
@@ -17,6 +26,7 @@ export class CategoriesModalComponent {
 	@Input() selectedCategories: Category[] = []
 	@Output() isOpenChange = new EventEmitter<boolean>()
 	@Output() categoryToggled = new EventEmitter<Category>()
+	@Output() categoriesCleared = new EventEmitter<void>()
 
 	menuIcon = ellipsisVertical
 	checkIcon = checkmarkOutline
@@ -31,5 +41,9 @@ export class CategoriesModalComponent {
 
 	isCategorySelected(category: Category): boolean {
 		return this.selectedCategories.some((c) => c.id === category.id)
+	}
+
+	clearCategories() {
+		this.categoriesCleared.emit()
 	}
 }

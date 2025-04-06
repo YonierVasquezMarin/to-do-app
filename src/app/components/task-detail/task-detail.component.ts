@@ -262,4 +262,10 @@ export class TaskDetailComponent implements OnInit {
 			this.selectedCategories = this.selectedCategories.filter((c) => c.id !== categoryId)
 		}
 	}
+
+	clearCategories() {
+		this.selectedCategoryIds = []
+		this.selectedCategories = []
+		this.isCategoriesModalOpen = false
+	}
 }

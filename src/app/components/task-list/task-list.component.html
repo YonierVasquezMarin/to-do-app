@@ -1,16 +1,30 @@
 <div class="task-container">
+	<!-- Filter chip -->
+	<div class="filter-container">
+		<ion-chip [color]="isFilterActive ? 'primary' : 'medium'" (click)="openCategoriesModal()" class="filter-chip">
+			<ion-icon [icon]="filterIcon"></ion-icon>
+			<ion-label>Filtrar</ion-label>
+		</ion-chip>
+	</div>
+
 	<!-- Empty state message -->
-	<div class="empty-state" *ngIf="!tasks || tasks.length === 0">
+	<div class="empty-state" *ngIf="!filteredTasks || filteredTasks.length === 0">
 		<ion-img src="assets/empty-view/empty-view.png" class="empty-state-image"></ion-img>
 		<ion-text color="medium">
 			<h2>No hay tareas pendientes</h2>
-			<p>Cuando crees una tarea, aparecerán aquí</p>
+			<p>
+				{{
+					isFilterActive
+						? "No hay tareas que coincidan con los filtros seleccionados"
+						: "Cuando crees una tarea, aparecerán aquí"
+				}}
+			</p>
 		</ion-text>
 	</div>
 
 	<!-- Task list -->
-	<div *ngIf="tasks && tasks.length > 0">
-		<ion-card *ngFor="let task of tasks" class="task-card" (click)="onTaskClick(task)">
+	<div *ngIf="filteredTasks && filteredTasks.length > 0">
+		<ion-card *ngFor="let task of filteredTasks" class="task-card" (click)="onTaskClick(task)">
 			<ion-card-content class="task-content">
 				<div class="task-info">
 					<ion-chip
@@ -28,3 +42,11 @@
 		</ion-card>
 	</div>
 </div>
+
+<app-categories-modal
+	[(isOpen)]="isCategoriesModalOpen"
+	[availableCategories]="categories"
+	[selectedCategories]="selectedCategories"
+	(categoryToggled)="onCategoryToggled($event)"
+	(categoriesCleared)="clearFilters()"
+></app-categories-modal>
