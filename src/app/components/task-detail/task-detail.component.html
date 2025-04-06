@@ -23,7 +23,7 @@
 
 	<form [formGroup]="taskForm">
 		<ion-list>
-			<!-- Título -->
+			<!-- Title -->
 			<ion-item>
 				<ion-label position="stacked">Título <span style="color: red">*</span></ion-label>
 				<ion-input
@@ -61,8 +61,7 @@
 							<ion-label>{{ category.name }}</ion-label>
 							<ion-icon [icon]="closeIcon" color="white" (click)="removeCategory(category)"></ion-icon>
 						</ion-chip>
-						<ion-chip (click)="openCategoriesModal()">
-							<ion-label>Agregar</ion-label>
+						<ion-chip (click)="openCategoriesModal()" class="icon-only-chip">
 							<ion-icon [icon]="addIcon"></ion-icon>
 						</ion-chip>
 					</div>
