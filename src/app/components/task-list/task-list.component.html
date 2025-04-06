@@ -1,8 +1,10 @@
-<ion-list>
-	<ion-item *ngFor="let task of tasks">
-		<ion-label>
-			<h2>{{ task.title }}</h2>
-			<p>{{ task.description }}</p>
-		</ion-label>
-	</ion-item>
-</ion-list>
+<main class="task-container">
+	<ion-card *ngFor="let task of tasks" class="task-card">
+		<ion-card-content class="task-content">
+			<ion-icon [icon]="libraryOutline" class="task-icon" color="medium"></ion-icon>
+			<ion-text>
+				<h2>{{ task.title }}</h2>
+			</ion-text>
+		</ion-card-content>
+	</ion-card>
+</main>
