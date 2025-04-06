@@ -20,6 +20,13 @@ export class TaskListComponent implements OnInit {
 		this.loadTasks()
 	}
 
+	/**
+	 * This method runs every time the page is about to be shown.
+	 */
+	async ionViewWillEnter() {
+		await this.loadTasks()
+	}
+
 	// Load all tasks from the service
 	private async loadTasks(): Promise<void> {
 		try {
