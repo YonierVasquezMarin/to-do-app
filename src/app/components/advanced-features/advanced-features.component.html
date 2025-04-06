@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-	<ion-card class="feature-card">
+	<ion-card class="feature-card" *ngFor="let feature of features">
 		<ion-card-content>
 			<div class="feature-content">
 				<ion-icon [icon]="sparklesIcon" color="primary" class="feature-icon"></ion-icon>
@@ -16,10 +16,9 @@
 					<ion-chip color="success" class="status-chip">
 						<ion-label>Activo</ion-label>
 					</ion-chip>
-					<h2>Ampliación de descripciones con IA</h2>
+					<h2>{{ feature.name }}</h2>
 					<p>
-						Amplia facilmente detalles extra de tus tareas, encuentra esta opción al momento de crear o
-						editar una tarea
+						{{ feature.description }}
 					</p>
 				</div>
 			</div>
