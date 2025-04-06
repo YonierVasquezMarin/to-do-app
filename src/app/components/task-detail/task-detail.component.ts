@@ -60,7 +60,13 @@ export class TaskDetailComponent implements OnInit {
 		})
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.resetForm()
+	}
+
+	private resetForm() {
+		this.taskForm.reset()
+	}
 
 	async saveTask() {
 		if (this.taskForm.valid) {

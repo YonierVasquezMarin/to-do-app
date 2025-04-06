@@ -16,19 +16,14 @@ export class TaskListComponent implements OnInit {
 
 	constructor(private taskService: TaskService) {}
 
-	ngOnInit() {
-		this.loadTasks()
-	}
-
-	/**
-	 * This method runs every time the page is about to be shown.
-	 */
-	async ionViewWillEnter() {
+	async ngOnInit() {
 		await this.loadTasks()
 	}
 
-	// Load all tasks from the service
-	private async loadTasks(): Promise<void> {
+	/**
+	 * Load all tasks from the service
+	 */
+	async loadTasks(): Promise<void> {
 		try {
 			this.tasks = await this.taskService.getTasks()
 		} catch (error) {

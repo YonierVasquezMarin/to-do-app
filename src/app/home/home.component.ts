@@ -12,7 +12,7 @@ import {
 } from '@ionic/angular/standalone'
 import { TaskListComponent } from '../components/task-list/task-list.component'
 import { addOutline, ellipsisVertical } from 'ionicons/icons'
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { MenuOptionsComponent } from '../specific-components/menu-options/menu-options.component'
 
@@ -41,9 +41,15 @@ export class HomeComponent implements OnInit {
 	addIcon = addOutline
 	menuIcon = ellipsisVertical
 
+	@ViewChild(TaskListComponent) taskListComponent!: TaskListComponent
+
 	constructor(private router: Router) {}
 
 	ngOnInit() {}
+
+	ionViewWillEnter() {
+		this.taskListComponent.loadTasks()
+	}
 
 	navigateToTaskDetail() {
 		this.router.navigate(['/task-detail'])
