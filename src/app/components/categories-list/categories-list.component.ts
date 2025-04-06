@@ -1,19 +1,32 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { IonicModule } from '@ionic/angular'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
 import { addOutline } from 'ionicons/icons'
+import { CategoryService } from '../../../services/category.service'
+import { Category } from '../../../models/business/task.model'
 
 @Component({
 	selector: 'app-categories-list',
 	templateUrl: './categories-list.component.html',
+	styleUrls: ['./categories-list.component.scss'],
 	standalone: true,
 	imports: [IonicModule, CommonModule],
 })
-export class CategoriesListComponent {
+export class CategoriesListComponent implements OnInit {
 	addIcon = addOutline
+	categories: Category[] = []
 
-	constructor(private router: Router) {}
+	constructor(private router: Router, private categoryService: CategoryService) {}
+
+	async ngOnInit() {
+		await this.loadCategories()
+	}
+
+	async loadCategories() {
+		this.categories = await this.categoryService.getCategories()
+		console.log('Categorías cargadas:', this.categories)
+	}
 
 	navigateToNewCategory() {
 		this.router.navigate(['/category-detail'])
