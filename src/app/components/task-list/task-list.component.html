@@ -12,10 +12,18 @@
 	<div *ngIf="tasks && tasks.length > 0">
 		<ion-card *ngFor="let task of tasks" class="task-card" (click)="onTaskClick(task)">
 			<ion-card-content class="task-content">
-				<ion-icon [icon]="libraryOutline" class="task-icon" color="medium"></ion-icon>
-				<ion-text>
-					<h2>{{ task.title }}</h2>
-				</ion-text>
+				<div class="task-info">
+					<ion-chip
+						class="status-chip"
+						[style.--background]="task.state_id === 1 ? '#FFA726' : '#4CAF50'"
+						[style.--color]="'#fff'"
+					>
+						<ion-icon [icon]="task.state_id === 1 ? timeIcon : completeIcon" color="white"></ion-icon>
+					</ion-chip>
+					<ion-text>
+						<h2>{{ task.title }}</h2>
+					</ion-text>
+				</div>
 			</ion-card-content>
 		</ion-card>
 	</div>

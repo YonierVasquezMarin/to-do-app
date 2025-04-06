@@ -1,8 +1,8 @@
-import { IonIcon, IonCard, IonCardContent, IonText, IonImg } from '@ionic/angular/standalone'
+import { IonIcon, IonCard, IonCardContent, IonText, IonImg, IonChip } from '@ionic/angular/standalone'
 import { TaskService } from '../../../services/task.service'
 import { Task } from '../../../models/business/task.model'
 import { Component, OnInit } from '@angular/core'
-import { libraryOutline } from 'ionicons/icons'
+import { libraryOutline, timeOutline, checkmarkCircleOutline } from 'ionicons/icons'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
 
@@ -11,10 +11,12 @@ import { Router } from '@angular/router'
 	templateUrl: './task-list.component.html',
 	styleUrls: ['./task-list.component.scss'],
 	standalone: true,
-	imports: [CommonModule, IonIcon, IonCard, IonCardContent, IonText, IonImg],
+	imports: [CommonModule, IonIcon, IonCard, IonCardContent, IonText, IonImg, IonChip],
 })
 export class TaskListComponent implements OnInit {
 	libraryOutline = libraryOutline
+	timeIcon = timeOutline
+	completeIcon = checkmarkCircleOutline
 
 	// Array to store the tasks
 	tasks: Task[] = []
