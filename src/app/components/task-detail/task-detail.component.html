@@ -13,6 +13,14 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+	<!-- State of task -->
+	<div class="status-chip-container" *ngIf="isEdit">
+		<ion-chip [style.--background]="task?.state_id === 1 ? '#FFA726' : '#4CAF50'" [style.--color]="'#fff'">
+			<ion-icon [icon]="task?.state_id === 1 ? timeIcon : completeIcon" color="white"></ion-icon>
+			<ion-label>{{ task?.state_id === 1 ? "Pendiente" : "Completada" }}</ion-label>
+		</ion-chip>
+	</div>
+
 	<form [formGroup]="taskForm">
 		<ion-list>
 			<!-- Título -->
@@ -26,14 +34,14 @@
 			</ion-item>
 			<app-error-message [message]="titleError"></app-error-message>
 
-			<!-- Descripción -->
+			<!-- Description -->
 			<ion-item>
 				<ion-label position="stacked">Descripción</ion-label>
 				<ion-textarea
 					formControlName="description"
 					placeholder="Ingrese la descripción de la tarea"
 					maxlength="200"
-					[rows]="4"
+					[rows]="2"
 					autoGrow="true"
 				></ion-textarea>
 			</ion-item>

@@ -12,6 +12,7 @@ import {
 	addCircleOutline,
 	closeCircleOutline,
 	checkmarkCircleOutline,
+	timeOutline,
 } from 'ionicons/icons'
 import {
 	IonHeader,
@@ -68,6 +69,7 @@ export class TaskDetailComponent implements OnInit {
 	addIcon = addCircleOutline
 	closeIcon = closeCircleOutline
 	completeIcon = checkmarkCircleOutline
+	timeIcon = timeOutline
 	taskForm: FormGroup
 	task?: Task
 	isEdit = false

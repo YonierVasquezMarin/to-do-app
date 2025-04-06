@@ -21,3 +21,13 @@
     }
   }
 }
+
+.status-chip-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  ion-chip {
+    margin: 0;
+  }
+}
