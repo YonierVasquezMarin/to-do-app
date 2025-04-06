@@ -1,7 +1,7 @@
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { CategoryService } from '../../../services/category.service'
-import { checkmarkOutline, closeOutline } from 'ionicons/icons'
+import { checkmarkOutline, closeOutline, trashOutline } from 'ionicons/icons'
 import { Category } from '../../../models/business/task.model'
 import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
@@ -20,6 +20,8 @@ import {
 	IonButton,
 	IonIcon,
 	ToastController,
+	IonFab,
+	IonFabButton,
 } from '@ionic/angular/standalone'
 
 @Component({
@@ -43,10 +45,13 @@ import {
 		IonButtons,
 		IonButton,
 		IonIcon,
+		IonFab,
+		IonFabButton,
 	],
 })
 export class CategoryDetailComponent implements OnInit {
 	checkIcon = checkmarkOutline
+	trashIcon = trashOutline
 	categoryForm: FormGroup
 	category?: Category
 	isEdit = false
@@ -183,5 +188,20 @@ export class CategoryDetailComponent implements OnInit {
 			}
 		}
 		return ''
+	}
+
+	async deleteCategory() {
+		if (!this.category?.id || !this.isEdit) {
+			return
+		}
+
+		try {
+			await this.categoryService.deleteCategory(this.category.id)
+			await this.showSuccessfulToast('Categoría eliminada exitosamente')
+			this.router.navigate(['/categories'])
+		} catch (error) {
+			console.error('Error al eliminar la categoría:', error)
+			await this.showErrorToast()
+		}
 	}
 }

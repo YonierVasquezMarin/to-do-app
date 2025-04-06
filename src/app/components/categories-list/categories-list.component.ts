@@ -23,9 +23,15 @@ export class CategoriesListComponent implements OnInit {
 		await this.loadCategories()
 	}
 
+	/**
+	 * This method is executed every time the page is about to be shown.
+	 */
+	async ionViewWillEnter() {
+		await this.loadCategories()
+	}
+
 	async loadCategories() {
 		this.categories = await this.categoryService.getCategories()
-		console.log('Categorías cargadas:', this.categories)
 	}
 
 	navigateToNewCategory() {
