@@ -1,5 +1,11 @@
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { checkmarkOutline, closeOutline, trashOutline } from 'ionicons/icons'
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { TaskService } from '../../../services/task.service'
+import { Task } from '../../../models/business/task.model'
+import { CommonModule } from '@angular/common'
+import { Router } from '@angular/router'
 import {
 	IonHeader,
 	IonToolbar,
@@ -14,13 +20,8 @@ import {
 	IonButton,
 	IonIcon,
 	ToastController,
+	IonFabButton,
 } from '@ionic/angular/standalone'
-import { TaskService } from '../../../services/task.service'
-import { checkmarkOutline, closeOutline } from 'ionicons/icons'
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { Router } from '@angular/router'
-import { Task } from '../../../models/business/task.model'
 
 @Component({
 	selector: 'app-task-detail',
@@ -42,11 +43,13 @@ import { Task } from '../../../models/business/task.model'
 		IonInput,
 		IonButton,
 		IonIcon,
+		IonFabButton,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TaskDetailComponent implements OnInit {
 	checkIcon = checkmarkOutline
+	trashIcon = trashOutline
 	taskForm: FormGroup
 	task?: Task
 	isEdit = false
@@ -107,15 +110,15 @@ export class TaskDetailComponent implements OnInit {
 			id: this.task?.id,
 			...this.taskForm.value,
 		})
-		await this.showSuccessfulToast('Tarea actualizada exitosamente')
+		await this.showSuccessfulToast('Tarea actualizada')
 	}
 
 	private async createTask() {
 		await this.taskService.createTask(this.taskForm.value)
-		await this.showSuccessfulToast('Tarea creada exitosamente')
+		await this.showSuccessfulToast('Tarea creada')
 	}
 
-	private async showSuccessfulToast(message: string = 'Tarea creada exitosamente') {
+	private async showSuccessfulToast(message: string = 'Tarea creada') {
 		const toast = await this.toastController.create({
 			message,
 			duration: 2000,
@@ -135,6 +138,19 @@ export class TaskDetailComponent implements OnInit {
 			icon: closeOutline,
 		})
 		await toast.present()
+	}
+
+	async deleteTask() {
+		if (this.task?.id) {
+			try {
+				await this.taskService.deleteTask(this.task.id)
+				await this.showSuccessfulToast('Tarea eliminada')
+				this.router.navigate(['/home'])
+			} catch (error) {
+				console.error('Error al eliminar la tarea:', error)
+				await this.showErrorToast()
+			}
+		}
 	}
 
 	get titleError(): string {

@@ -38,3 +38,10 @@
 		</ion-list>
 	</form>
 </ion-content>
+
+<!-- Bottom FAB for delete task -->
+<ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px" *ngIf="isEdit">
+	<ion-fab-button color="light" (click)="deleteTask()">
+		<ion-icon [icon]="trashIcon" color="danger"></ion-icon>
+	</ion-fab-button>
+</ion-fab>
