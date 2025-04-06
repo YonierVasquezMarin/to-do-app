@@ -50,7 +50,6 @@ import {
 	],
 })
 export class CategoryDetailComponent implements OnInit {
-	checkIcon = checkmarkOutline
 	trashIcon = trashOutline
 	categoryForm: FormGroup
 	category?: Category
