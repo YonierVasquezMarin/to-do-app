@@ -3,20 +3,16 @@ export interface State {
 	name: string
 }
 
+export interface Category {
+	id?: number
+	name: string
+	color: string
+}
+
 export interface Task {
 	id?: number
 	title: string
 	description: string
 	state_id: number
-}
-
-export interface Category {
-	id?: number
-	title: string
-	color: string
-}
-
-export interface TaskCategory {
-	task_id: number
-	category_id: number
+	categories?: Category[]
 }

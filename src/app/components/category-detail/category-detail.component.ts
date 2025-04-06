@@ -90,7 +90,7 @@ export class CategoryDetailComponent implements OnInit {
 		}
 
 		this.categoryForm = this.formBuilder.group({
-			title: ['', [Validators.required, Validators.maxLength(30)]],
+			name: ['', [Validators.required, Validators.maxLength(30)]],
 			color: ['', [Validators.required]],
 		})
 	}
@@ -98,7 +98,7 @@ export class CategoryDetailComponent implements OnInit {
 	ngOnInit() {
 		if (this.category) {
 			this.categoryForm.patchValue({
-				title: this.category.title,
+				name: this.category.name,
 				color: this.category.color,
 			})
 			this.selectedColor = this.category.color
@@ -171,7 +171,7 @@ export class CategoryDetailComponent implements OnInit {
 	}
 
 	get titleError(): string {
-		const control = this.categoryForm.get('title')
+		const control = this.categoryForm.get('name')
 		if (control?.errors && control.touched) {
 			if (control.errors['required']) {
 				return 'El nombre de la categoría es requerido'

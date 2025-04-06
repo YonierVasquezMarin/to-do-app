@@ -1,11 +1,18 @@
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { checkmarkOutline, closeOutline, trashOutline } from 'ionicons/icons'
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core'
+import { Task, Category } from '../../../models/business/task.model'
 import { TaskService } from '../../../services/task.service'
-import { Task } from '../../../models/business/task.model'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
+import {
+	checkmarkOutline,
+	closeOutline,
+	trashOutline,
+	addCircleOutline,
+	closeCircleOutline,
+	ellipsisVertical,
+} from 'ionicons/icons'
 import {
 	IonHeader,
 	IonToolbar,
@@ -22,11 +29,15 @@ import {
 	ToastController,
 	IonFabButton,
 	IonTextarea,
+	IonChip,
+	IonModal,
 } from '@ionic/angular/standalone'
+import { CategoryService } from 'src/services/category.service'
 
 @Component({
 	selector: 'app-task-detail',
 	templateUrl: './task-detail.component.html',
+	styleUrls: ['./task-detail.component.scss'],
 	standalone: true,
 	imports: [
 		CommonModule,
@@ -46,21 +57,32 @@ import {
 		IonIcon,
 		IonFabButton,
 		IonTextarea,
+		IonChip,
+		IonModal,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TaskDetailComponent implements OnInit {
+	@ViewChild('categoriesModal') categoriesModal!: IonModal
+
 	checkIcon = checkmarkOutline
 	trashIcon = trashOutline
+	addIcon = addCircleOutline
+	closeIcon = closeCircleOutline
+	menuIcon = ellipsisVertical
 	taskForm: FormGroup
 	task?: Task
 	isEdit = false
+	isCategoriesModalOpen = false
+	availableCategories: Category[] = []
+	selectedCategories: Category[] = []
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private taskService: TaskService,
 		private router: Router,
-		private toastController: ToastController
+		private toastController: ToastController,
+		private categoryService: CategoryService
 	) {
 		const navigation = this.router.getCurrentNavigation()
 		if (navigation?.extras.state) {
@@ -80,9 +102,19 @@ export class TaskDetailComponent implements OnInit {
 				title: this.task.title,
 				description: this.task.description,
 			})
+			// Load categories from task if they exist
+			if (this.task.categories) {
+				this.selectedCategories = this.task.categories
+			}
 		} else {
 			this.resetForm()
 		}
+
+		this.loadCategories()
+	}
+
+	private async loadCategories() {
+		this.availableCategories = await this.categoryService.getCategories()
 	}
 
 	private resetForm() {
@@ -111,6 +143,7 @@ export class TaskDetailComponent implements OnInit {
 		await this.taskService.updateTask({
 			id: this.task?.id,
 			...this.taskForm.value,
+			categories: this.selectedCategories,
 		})
 		await this.showSuccessfulToast('Tarea actualizada')
 	}
@@ -119,6 +152,7 @@ export class TaskDetailComponent implements OnInit {
 		await this.taskService.createTask({
 			...this.taskForm.value,
 			state_id: 1, // Pending state by default
+			categories: this.selectedCategories,
 		})
 		await this.showSuccessfulToast('Tarea creada')
 	}
@@ -176,5 +210,29 @@ export class TaskDetailComponent implements OnInit {
 			}
 		}
 		return ''
+	}
+
+	openCategoriesModal() {
+		this.isCategoriesModalOpen = true
+	}
+
+	toggleCategory(category: Category) {
+		const index = this.selectedCategories.findIndex((c) => c.id === category.id)
+		if (index === -1) {
+			this.selectedCategories.push(category)
+		} else {
+			this.selectedCategories.splice(index, 1)
+		}
+	}
+
+	removeCategory(category: Category) {
+		const index = this.selectedCategories.findIndex((c) => c.id === category.id)
+		if (index !== -1) {
+			this.selectedCategories.splice(index, 1)
+		}
+	}
+
+	isCategorySelected(category: Category): boolean {
+		return this.selectedCategories.some((c) => c.id === category.id)
 	}
 }

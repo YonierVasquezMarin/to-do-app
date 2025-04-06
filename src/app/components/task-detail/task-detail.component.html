@@ -17,7 +17,7 @@
 		<ion-list>
 			<!-- Título -->
 			<ion-item>
-				<ion-label position="stacked">Título</ion-label>
+				<ion-label position="stacked">Título <span style="color: red">*</span></ion-label>
 				<ion-input
 					formControlName="title"
 					placeholder="Ingrese el título de la tarea"
@@ -28,7 +28,7 @@
 
 			<!-- Descripción -->
 			<ion-item>
-				<ion-label position="stacked">Descripción (opcional)</ion-label>
+				<ion-label position="stacked">Descripción</ion-label>
 				<ion-textarea
 					formControlName="description"
 					placeholder="Ingrese la descripción de la tarea"
@@ -37,8 +37,72 @@
 					autoGrow="true"
 				></ion-textarea>
 			</ion-item>
+
+			<!-- Categorías -->
+			<ion-list class="categories-list">
+				<ion-item lines="none">
+					<ion-label position="stacked">Categorías</ion-label>
+				</ion-item>
+				<ion-item lines="none" class="categories-item">
+					<div class="categories-container">
+						<ion-chip
+							*ngFor="let category of selectedCategories"
+							[style.--background]="category.color"
+							[style.--color]="'#fff'"
+						>
+							<ion-label>{{ category.name }}</ion-label>
+							<ion-icon [icon]="closeIcon" color="white" (click)="removeCategory(category)"></ion-icon>
+						</ion-chip>
+						<ion-chip (click)="openCategoriesModal()">
+							<ion-label>Agregar</ion-label>
+							<ion-icon [icon]="addIcon"></ion-icon>
+						</ion-chip>
+					</div>
+				</ion-item>
+			</ion-list>
 		</ion-list>
 	</form>
+
+	<!-- Modal de Categorías -->
+	<ion-modal
+		#categoriesModal
+		[breakpoints]="[0, 0.5, 0.8]"
+		[initialBreakpoint]="0.5"
+		[isOpen]="isCategoriesModalOpen"
+		(didDismiss)="isCategoriesModalOpen = false"
+	>
+		<ng-template>
+			<ion-content>
+				<!-- Empty state message -->
+				<div
+					class="empty-state ion-text-center"
+					*ngIf="!availableCategories || availableCategories.length === 0"
+				>
+					<ion-text color="medium">
+						<h4>No hay categorías creadas</h4>
+						<p class="ion-text-small">
+							Para crear una categoría <br />
+							ve al menú principal > <ion-icon [icon]="menuIcon" size="small"></ion-icon> > Categorías
+						</p>
+					</ion-text>
+				</div>
+
+				<!-- Category list -->
+				<ion-list *ngIf="availableCategories && availableCategories.length > 0">
+					<ion-item *ngFor="let category of availableCategories" (click)="toggleCategory(category)">
+						<div slot="start" class="category-color-dot" [style.background-color]="category.color"></div>
+						<ion-label>{{ category.name }}</ion-label>
+						<ion-icon
+							*ngIf="isCategorySelected(category)"
+							[icon]="checkIcon"
+							color="primary"
+							slot="end"
+						></ion-icon>
+					</ion-item>
+				</ion-list>
+			</ion-content>
+		</ng-template>
+	</ion-modal>
 </ion-content>
 
 <!-- Bottom FAB for delete task -->
