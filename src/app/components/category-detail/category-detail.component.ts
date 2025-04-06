@@ -1,7 +1,7 @@
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { CategoryService } from '../../../services/category.service'
 import { checkmarkOutline, closeOutline, trashOutline } from 'ionicons/icons'
+import { CategoryService } from '../../../services/category.service'
 import { Category } from '../../../models/business/task.model'
 import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
@@ -140,15 +140,15 @@ export class CategoryDetailComponent implements OnInit {
 			...this.category,
 			...this.categoryForm.value,
 		})
-		await this.showSuccessfulToast('Categoría actualizada exitosamente')
+		await this.showSuccessfulToast('Categoría actualizada')
 	}
 
 	private async editTask() {
 		await this.categoryService.addCategory(this.categoryForm.value)
-		await this.showSuccessfulToast('Categoría creada exitosamente')
+		await this.showSuccessfulToast('Categoría creada')
 	}
 
-	private async showSuccessfulToast(message: string = 'Categoría creada exitosamente') {
+	private async showSuccessfulToast(message: string = 'Categoría creada') {
 		const toast = await this.toastController.create({
 			message,
 			duration: 2000,
@@ -197,7 +197,7 @@ export class CategoryDetailComponent implements OnInit {
 
 		try {
 			await this.categoryService.deleteCategory(this.category.id)
-			await this.showSuccessfulToast('Categoría eliminada exitosamente')
+			await this.showSuccessfulToast('Categoría eliminada')
 			this.router.navigate(['/categories'])
 		} catch (error) {
 			console.error('Error al eliminar la categoría:', error)
