@@ -4,6 +4,8 @@
 			<ion-back-button defaultHref="/categories"></ion-back-button>
 		</ion-buttons>
 		<ion-title>{{ isEdit ? "Editar Categoría" : "Nueva Categoría" }}</ion-title>
+
+		<!-- Save categoy -->
 		<ion-buttons slot="end">
 			<ion-button (click)="saveCategory()">
 				<ion-icon [icon]="checkIcon" size="large" color="primary"></ion-icon>
@@ -21,7 +23,7 @@
 				<ion-input
 					formControlName="title"
 					placeholder="Ingrese el nombre de la categoría"
-					maxlength="60"
+					maxlength="30"
 				></ion-input>
 			</ion-item>
 			<app-error-message [message]="titleError"></app-error-message>

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core'
-import { IonicModule } from '@ionic/angular'
-import { CommonModule } from '@angular/common'
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { checkmarkOutline, closeOutline } from 'ionicons/icons'
-import { Router } from '@angular/router'
-import { CategoryService } from '../../../services/category.service'
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component'
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { CategoryService } from '../../../services/category.service'
+import { checkmarkOutline, closeOutline } from 'ionicons/icons'
+import { Category } from '../../../models/business/task.model'
+import { Component, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { Router } from '@angular/router'
 import {
 	IonHeader,
 	IonToolbar,
@@ -21,7 +21,6 @@ import {
 	IonIcon,
 	ToastController,
 } from '@ionic/angular/standalone'
-import { Category } from '../../../models/business/task.model'
 
 @Component({
 	selector: 'app-category-detail',
@@ -49,8 +48,8 @@ import { Category } from '../../../models/business/task.model'
 export class CategoryDetailComponent implements OnInit {
 	checkIcon = checkmarkOutline
 	categoryForm: FormGroup
-	isEdit = false
 	category?: Category
+	isEdit = false
 
 	colors = [
 		'#FF6B6B',
@@ -86,7 +85,7 @@ export class CategoryDetailComponent implements OnInit {
 		}
 
 		this.categoryForm = this.formBuilder.group({
-			title: ['', [Validators.required, Validators.maxLength(60)]],
+			title: ['', [Validators.required, Validators.maxLength(30)]],
 			color: ['', [Validators.required]],
 		})
 	}
