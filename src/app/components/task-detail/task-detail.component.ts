@@ -82,6 +82,7 @@ export class TaskDetailComponent implements OnInit {
 	selectedCategoryIds: number[] = []
 	selectedCategories: Category[] = []
 	isExpandingDescriptionsEnabled = false
+	isTyping = false
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -305,8 +306,8 @@ export class TaskDetailComponent implements OnInit {
 
 		try {
 			const description = await this.generativeAIService.generateTaskDescription(titleControl.value)
-			this.taskForm.patchValue({ description })
-			await this.showSuccessfulToast('Descripción generada con éxito')
+			await loading.dismiss()
+			await this.typeDescription(description)
 		} catch (error) {
 			console.error('Error al generar la descripción:', error)
 			const toast = await this.toastController.create({
@@ -317,8 +318,21 @@ export class TaskDetailComponent implements OnInit {
 				icon: closeCircleOutline,
 			})
 			await toast.present()
-		} finally {
 			await loading.dismiss()
 		}
+	}
+
+	private async typeDescription(text: string) {
+		this.isTyping = true
+		let currentText = ''
+		const delay = 30 // milisegundos entre cada carácter
+
+		for (let i = 0; i < text.length; i++) {
+			currentText += text[i]
+			this.taskForm.patchValue({ description: currentText })
+			await new Promise((resolve) => setTimeout(resolve, delay))
+		}
+
+		this.isTyping = false
 	}
 }

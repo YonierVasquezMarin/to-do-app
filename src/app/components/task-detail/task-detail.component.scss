@@ -37,3 +37,28 @@
     margin-left: 10px;
   }
 }
+
+.description-container {
+	position: relative;
+	width: 100%;
+}
+
+.typing-indicator {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+}
+
+.dot {
+	width: 8px;
+	height: 8px;
+	background-color: #9932cc;
+	border-radius: 50%;
+	animation: blink 1s infinite;
+}
+
+@keyframes blink {
+	0% { opacity: 0.2; }
+	50% { opacity: 1; }
+	100% { opacity: 0.2; }
+}

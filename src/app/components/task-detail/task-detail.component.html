@@ -37,13 +37,18 @@
 			<!-- Description -->
 			<ion-item>
 				<ion-label position="stacked">Descripción</ion-label>
-				<ion-textarea
-					formControlName="description"
-					placeholder="Ingrese la descripción de la tarea"
-					maxlength="200"
-					[rows]="2"
-					autoGrow="true"
-				></ion-textarea>
+				<div class="description-container">
+					<ion-textarea
+						formControlName="description"
+						placeholder="Ingrese la descripción de la tarea"
+						maxlength="200"
+						[rows]="2"
+						autoGrow="true"
+					></ion-textarea>
+					<div *ngIf="isTyping" class="typing-indicator">
+						<div class="dot"></div>
+					</div>
+				</div>
 			</ion-item>
 
 			<!-- Categorías -->
