@@ -70,4 +70,4 @@ testem.log
 Thumbs.db
 
 global-environment.ts
-/resources
+resources
