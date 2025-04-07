@@ -25,3 +25,9 @@
 		</ion-card-content>
 	</ion-card>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed" class="refresh-fab">
+	<ion-fab-button (click)="updateFeatures()" color="light">
+		<ion-icon [icon]="refreshIcon" class="refresh-icon" color="primary"></ion-icon>
+	</ion-fab-button>
+</ion-fab>

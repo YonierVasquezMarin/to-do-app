@@ -74,4 +74,16 @@ ion-item {
             line-height: 1.4;
         }
     }
+}
+
+.refresh-fab {
+    margin-bottom: 32px;
+
+    ion-fab-button {
+        --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .refresh-icon {
+        font-size: 24px;
+    }
 } 
