@@ -70,4 +70,11 @@ testem.log
 Thumbs.db
 
 global-environment.ts
-resources
+
+# Ignorar recursos generados automáticamente
+resources/android/
+resources/ios/
+
+# Solo seguir los archivos fuente
+!resources/icon.png
+!resources/splash.png
