@@ -80,12 +80,15 @@
 </ion-content>
 
 <!-- Bottom FABs -->
-<ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px" *ngIf="isEdit">
+<ion-fab vertical="bottom" horizontal="center" slot="fixed" style="margin-bottom: 32px">
 	<div style="display: flex; gap: 56px">
-		<ion-fab-button color="light" (click)="completeTask()">
+		<ion-fab-button color="light" *ngIf="isEdit" (click)="completeTask()">
 			<ion-icon [icon]="checkIcon" color="success" size="large"></ion-icon>
 		</ion-fab-button>
-		<ion-fab-button color="light" (click)="deleteTask()">
+		<ion-fab-button color="light" *ngIf="isExpandingDescriptionsEnabled">
+			<ion-icon [icon]="sparklesIcon" style="color: #9932cc; margin-left: 4px; margin-top: 2px"></ion-icon>
+		</ion-fab-button>
+		<ion-fab-button color="light" *ngIf="isEdit" (click)="deleteTask()">
 			<ion-icon [icon]="trashIcon" color="danger"></ion-icon>
 		</ion-fab-button>
 	</div>

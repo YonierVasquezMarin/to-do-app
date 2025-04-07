@@ -12,6 +12,7 @@ import {
 	checkmarkCircleOutline,
 	timeOutline,
 	checkmarkOutline,
+	sparklesOutline,
 } from 'ionicons/icons'
 import { CategoryService } from 'src/services/category.service'
 import { CategoriesModalComponent } from '../../specific-components/categories-modal/categories-modal.component'
@@ -33,6 +34,7 @@ import {
 	IonTextarea,
 	IonChip,
 } from '@ionic/angular/standalone'
+import { AdvancedFeatureService } from 'src/services/advanced-feature.service'
 
 @Component({
 	selector: 'app-task-detail',
@@ -69,6 +71,7 @@ export class TaskDetailComponent implements OnInit {
 	closeIcon = closeCircleOutline
 	completeIcon = checkmarkCircleOutline
 	timeIcon = timeOutline
+	sparklesIcon = sparklesOutline
 	taskForm: FormGroup
 	task?: Task
 	isEdit = false
@@ -76,13 +79,15 @@ export class TaskDetailComponent implements OnInit {
 	availableCategories: Category[] = []
 	selectedCategoryIds: number[] = []
 	selectedCategories: Category[] = []
+	isExpandingDescriptionsEnabled = false
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private taskService: TaskService,
 		private router: Router,
 		private toastController: ToastController,
-		private categoryService: CategoryService
+		private categoryService: CategoryService,
+		private advancedFeatureService: AdvancedFeatureService
 	) {
 		const navigation = this.router.getCurrentNavigation()
 		if (navigation?.extras.state) {
@@ -112,6 +117,12 @@ export class TaskDetailComponent implements OnInit {
 		}
 
 		this.loadCategories()
+
+		// Subscribe to advanced features changes
+		this.advancedFeatureService.pipeAdvancedFeatures((features) => {
+			const expandingDescriptionsFeature = features.find((f) => f.id === 'expanding-descriptions-with-ia')
+			this.isExpandingDescriptionsEnabled = expandingDescriptionsFeature?.actived ?? false
+		})
 	}
 
 	private async updateSelectedCategories() {

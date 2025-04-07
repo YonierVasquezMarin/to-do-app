@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core'
 	providedIn: 'root',
 })
 export class AdvancedFeatureService {
-	private readonly timeToUpdate = 3600000 // 1 hour in milliseconds
+	private readonly timeToUpdate = 10000 // 10 seconds
 	private static readonly features: AdvancedFeature[] = [
 		{
 			id: 'expanding-descriptions-with-ia',
