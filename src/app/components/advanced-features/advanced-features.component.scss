@@ -21,6 +21,21 @@ ion-item {
     border-radius: 12px;
     margin: 16px 0;
 
+    &.inactive {
+        background-color: var(--ion-color-light);
+        opacity: 0.8;
+
+        .feature-icon {
+            opacity: 0.6;
+        }
+
+        .feature-text {
+            h2, p {
+                opacity: 0.8;
+            }
+        }
+    }
+
     .feature-header {
         margin-bottom: 16px;
 

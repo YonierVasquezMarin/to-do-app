@@ -3,14 +3,14 @@ import { AdvancedFeature } from 'src/models/business/advanced-features.model'
 import { IonicModule } from '@ionic/angular'
 import { Component } from '@angular/core'
 import { sparkles } from 'ionicons/icons'
-import { NgFor } from '@angular/common'
+import { NgFor, NgClass } from '@angular/common'
 
 @Component({
 	selector: 'app-advanced-features',
 	templateUrl: './advanced-features.component.html',
 	styleUrls: ['./advanced-features.component.scss'],
 	standalone: true,
-	imports: [IonicModule, NgFor],
+	imports: [IonicModule, NgFor, NgClass],
 })
 export class AdvancedFeaturesComponent {
 	sparklesIcon = sparkles

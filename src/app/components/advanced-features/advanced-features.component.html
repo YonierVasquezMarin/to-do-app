@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-	<ion-card class="feature-card" *ngFor="let feature of features">
+	<ion-card class="feature-card" *ngFor="let feature of features" [ngClass]="{ inactive: !feature.actived }">
 		<ion-card-content>
 			<div class="feature-content">
 				<ion-icon [icon]="sparklesIcon" color="primary" class="feature-icon"></ion-icon>
 				<div class="feature-text">
-					<ion-chip color="success" class="status-chip">
-						<ion-label>Activo</ion-label>
+					<ion-chip [color]="feature.actived ? 'success' : 'warning'" class="status-chip">
+						<ion-label>{{ feature.actived ? "Activo" : "Desactivado" }}</ion-label>
 					</ion-chip>
 					<h2>{{ feature.title }}</h2>
 					<p>
