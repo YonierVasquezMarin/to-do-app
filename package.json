@@ -14,7 +14,7 @@
     "ionic:serve": "ng serve",
     "resources": "cordova-res ios && cordova-res android && node scripts/resources.js",
     "android": "cordova run android",
-    "build:android": "cordova build android"
+    "build:android": "npm run build && cordova-res android && cordova build android"
   },
   "private": true,
   "dependencies": {
@@ -55,7 +55,6 @@
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
-    "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "eslint": "^9.16.0",
     "eslint-plugin-import": "^2.29.1",
@@ -75,7 +74,6 @@
     "plugins": {
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {}
     },
