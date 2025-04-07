@@ -16,6 +16,7 @@ import {
 } from 'ionicons/icons'
 import { CategoryService } from 'src/services/category.service'
 import { CategoriesModalComponent } from '../../specific-components/categories-modal/categories-modal.component'
+import { GenerativeAIService } from 'src/services/generative-ai.service'
 import {
 	IonHeader,
 	IonToolbar,
@@ -33,6 +34,7 @@ import {
 	IonFabButton,
 	IonTextarea,
 	IonChip,
+	LoadingController,
 } from '@ionic/angular/standalone'
 import { AdvancedFeatureService } from 'src/services/advanced-feature.service'
 
@@ -87,7 +89,9 @@ export class TaskDetailComponent implements OnInit {
 		private router: Router,
 		private toastController: ToastController,
 		private categoryService: CategoryService,
-		private advancedFeatureService: AdvancedFeatureService
+		private advancedFeatureService: AdvancedFeatureService,
+		private generativeAIService: GenerativeAIService,
+		private loadingController: LoadingController
 	) {
 		const navigation = this.router.getCurrentNavigation()
 		if (navigation?.extras.state) {
@@ -278,5 +282,43 @@ export class TaskDetailComponent implements OnInit {
 		this.selectedCategoryIds = []
 		this.selectedCategories = []
 		this.isCategoriesModalOpen = false
+	}
+
+	async generateDescription() {
+		const titleControl = this.taskForm.get('title')
+		if (!titleControl || !titleControl.value) {
+			const toast = await this.toastController.create({
+				message: 'Por favor, ingresa primero el título de la tarea',
+				duration: 2000,
+				position: 'bottom',
+				color: 'warning',
+			})
+			await toast.present()
+			return
+		}
+
+		const loading = await this.loadingController.create({
+			message: 'Generando descripción...',
+			spinner: 'crescent',
+		})
+		await loading.present()
+
+		try {
+			const description = await this.generativeAIService.generateTaskDescription(titleControl.value)
+			this.taskForm.patchValue({ description })
+			await this.showSuccessfulToast('Descripción generada con éxito')
+		} catch (error) {
+			console.error('Error al generar la descripción:', error)
+			const toast = await this.toastController.create({
+				message: 'Error al generar la descripción',
+				duration: 2000,
+				position: 'bottom',
+				color: 'danger',
+				icon: closeCircleOutline,
+			})
+			await toast.present()
+		} finally {
+			await loading.dismiss()
+		}
 	}
 }

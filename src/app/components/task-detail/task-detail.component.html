@@ -85,7 +85,7 @@
 		<ion-fab-button color="light" *ngIf="isEdit" (click)="completeTask()">
 			<ion-icon [icon]="checkIcon" color="success" size="large"></ion-icon>
 		</ion-fab-button>
-		<ion-fab-button color="light" *ngIf="isExpandingDescriptionsEnabled">
+		<ion-fab-button color="light" *ngIf="isExpandingDescriptionsEnabled" (click)="generateDescription()">
 			<ion-icon [icon]="sparklesIcon" style="color: #9932cc; margin-left: 4px; margin-top: 2px"></ion-icon>
 		</ion-fab-button>
 		<ion-fab-button color="light" *ngIf="isEdit" (click)="deleteTask()">
