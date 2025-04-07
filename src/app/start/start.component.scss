@@ -1,3 +1,19 @@
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+ion-content {
+    --background: #e6eef5;
+}
+
 .slide {
     justify-content: center;
     flex-direction: column;
@@ -9,7 +25,15 @@
     display: flex;
     height: 83vh;
     width: 100%;
-    gap: 20px;
+    gap: 35px;
+
+    p {
+        font-weight: 700;
+        font-size: 1.1em;
+        margin-top: 15px;
+        color: #2d4b6a;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.9);
+    }
 }
 
 .buttons-container {
@@ -20,4 +44,14 @@
     bottom: 40px;
     width: 100%;
     left: 50%;
+}
+
+.slide-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
