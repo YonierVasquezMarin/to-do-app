@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular'
 import { Component } from '@angular/core'
 import { sparkles } from 'ionicons/icons'
 import { NgFor } from '@angular/common'
+
 @Component({
 	selector: 'app-advanced-features',
 	templateUrl: './advanced-features.component.html',

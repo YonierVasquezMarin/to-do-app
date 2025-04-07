@@ -1,5 +1,6 @@
 export interface AdvancedFeature {
-	name: string
+	id: string
+	title: string
 	description: string
 	actived: boolean
 }

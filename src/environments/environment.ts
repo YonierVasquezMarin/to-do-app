@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+	production: false,
+	firebaseUrl: 'https://to-do-app-remote-config-default-rtdb.firebaseio.com/to-do-app.json',
+}
 
 /*
  * For easier debugging in development mode, you can import the following file
