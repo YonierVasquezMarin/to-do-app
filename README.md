@@ -36,6 +36,20 @@ cd to-do-app
 npm install
 ```
 
+3. Configurar servicios externos
+
+La aplicación requiere el archivo `global-environment.ts` en la raíz del proyecto para la correcta conexión con servicios externos. Este archivo debe contener las credenciales y endpoints necesarios para Azure OpenAI u otros servicios que utiliza la aplicación.
+
+Ejemplo de estructura del archivo `global-environment.ts`:
+
+```typescript
+export const AZURE_OPENAI_ENDPOINT = "your-azure-endpoint"
+export const AZURE_OPENAI_API_KEY = "your-api-key"
+export const AZURE_OPENAI_DEPLOYMENT_NAME = "your-deployment-name"
+```
+
+> **Importante**: Este archivo no se incluye en el repositorio por motivos de seguridad. Contacte al administrador del proyecto para obtener las credenciales necesarias.
+
 ## Desarrollo
 
 Para iniciar el servidor de desarrollo:
